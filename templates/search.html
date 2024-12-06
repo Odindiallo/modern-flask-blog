@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="search-results">
+        <div class="container">
+            <h1 class="search-title">
+                {% if query %}
+                    Search Results for "{{ query }}"
+                {% else %}
+                    Search Posts
+                {% endif %}
+            </h1>
+
+            {% if posts %}
+                <div class="post-grid">
+                    {% for post in posts %}
+                        <article class="post-card">
+                            {% if post.image_url %}
+                                <div class="post-thumbnail">
+                                    <img src="{{ post.image_url }}" alt="{{ post.title }}">
+                                </div>
+                            {% endif %}
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <span class="post-category">{{ post.category }}</span>
+                                    <span class="post-date">{{ post.created_at.strftime('%B %d, %Y') }}</span>
+                                </div>
+                                <h2 class="post-title">
+                                    <a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a>
+                                </h2>
+                                {% if post.subtitle %}
+                                    <p class="post-excerpt">{{ post.subtitle }}</p>
+                                {% endif %}
+                                <div class="post-footer">
+                                    <span class="reading-time">{{ post.reading_time }} min read</span>
+                                    <a href="{{ url_for('post', post_id=post.id) }}" class="read-more">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+
+                {% if pagination and pagination.pages > 1 %}
+                    <nav class="pagination">
+                        {% if pagination.has_prev %}
+                            <a href="{{ url_for('search', q=query, page=pagination.prev_num) }}" class="prev-page">&larr; Previous</a>
+                        {% endif %}
+                        
+                        <span class="current-page">Page {{ pagination.page }} of {{ pagination.pages }}</span>
+                        
+                        {% if pagination.has_next %}
+                            <a href="{{ url_for('search', q=query, page=pagination.next_num) }}" class="next-page">Next &rarr;</a>
+                        {% endif %}
+                    </nav>
+                {% endif %}
+            {% else %}
+                <div class="no-results">
+                    {% if query %}
+                        <p>No posts found matching "{{ query }}". Try different keywords or browse our recent posts.</p>
+                    {% else %}
+                        <p>Enter keywords in the search box above to find posts.</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <style>
+        .search-results {
+            padding: 4rem 0;
+        }
+
+        .search-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: var(--gray-light);
+            border-radius: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 4rem;
+        }
+
+        .pagination a {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .current-page {
+            padding: 0.75rem 1.5rem;
+            background: var(--gray-light);
+            border-radius: 0.5rem;
+            color: var(--text-secondary);
+        }
+    </style>
+{% endblock %}

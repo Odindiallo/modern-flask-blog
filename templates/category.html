@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category | title }} Posts | Blog{% endblock %}
+
+{% block extra_css %}
+<style>
+    .category-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .category-description {
+        max-width: 600px;
+        margin: 0 auto;
+        color: #666;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="category-header">
+    <h1>{{ category | title }} Posts</h1>
+    <p class="category-description">
+        Explore our collection of articles about {{ category | lower }}.
+    </p>
+</div>
+
+<div class="post-grid">
+    {% for post in posts %}
+    <article class="post-card">
+        <img src="{{ post.image_url or 'https://via.placeholder.com/300x200' }}" alt="{{ post.title }}" class="post-image">
+        <div class="post-content">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.subtitle }}</p>
+            <a href="{{ url_for('post', post_id=post.id) }}" class="btn">Read More</a>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}

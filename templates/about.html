@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}About | Blog{% endblock %}
+
+{% block extra_css %}
+<style>
+    .about-section {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .team-member {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background-color: var(--gray-light);
+        border-radius: 0.5rem;
+    }
+
+    .team-member img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .social-links {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .social-links a {
+        color: var(--text-color);
+        text-decoration: none;
+    }
+
+    .social-links a:hover {
+        color: var(--primary-color);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="about-section">
+    <h1>About Our Blog</h1>
+    <p>Welcome to our blog! We're passionate about sharing knowledge and insights about technology, lifestyle, and everything in between.</p>
+    
+    <h2>Our Mission</h2>
+    <p>Our mission is to provide high-quality, engaging content that helps our readers stay informed and inspired. We believe in the power of sharing knowledge and building a community of lifelong learners.</p>
+
+    <h2>Meet the Team</h2>
+    <div class="team-member">
+        <img src="https://via.placeholder.com/100" alt="Team Member">
+        <div>
+            <h3>John Doe</h3>
+            <p>Lead Editor</p>
+            <p>Passionate about technology and its impact on society.</p>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <img src="https://via.placeholder.com/100" alt="Team Member">
+        <div>
+            <h3>Jane Smith</h3>
+            <p>Content Writer</p>
+            <p>Lifestyle enthusiast and experienced blogger.</p>
+        </div>
+    </div>
+
+    <div class="social-links">
+        <a href="#">Twitter</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+    </div>
+</div>
+{% endblock %}
